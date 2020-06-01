@@ -22,7 +22,7 @@ const Connect = function() {
             }
         });
     });
- };
+};
 
 const Find = function(item) {
     let itemQuery = {};

@@ -26,7 +26,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Get all endpoint
 app.get('/api/schedules', cors(), async function(req, res) {
+
   const result = await DAL.Find();
+
   res.send(result);
 });
 
