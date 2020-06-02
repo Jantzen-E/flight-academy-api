@@ -1,6 +1,0 @@
-{
-    "env": {
-        "DEBUG": "flight-academy-api:*",
-        "PORT": 5001
-    }
-}

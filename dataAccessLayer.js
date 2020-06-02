@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const databaseName = 'scheduling-db';
 const collectionName = 'schedules';
+require('dotenv').config()
 const mongoDbUrl = process.env.ATLAS_CONNECTION;
 const settings = {
     useUnifiedTopology: true,

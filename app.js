@@ -5,10 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const DAL = require('./dataAccessLayer');
 const ObjectId = require('mongodb').ObjectId;
+require('dotenv').config();
+const PORT = process.env.PORT;
 var cors = require('cors');
 // var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
-require('dotenv').config();
 var app = express();
 DAL.Connect();
 
@@ -62,6 +63,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.listen(PORT, function(){
+  console.log('Server is running on port:', PORT);
 });
 
 module.exports = app;
