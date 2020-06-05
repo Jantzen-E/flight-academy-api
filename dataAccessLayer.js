@@ -45,4 +45,49 @@ const Find = function(item) {
     });
 };
 
-module.exports = { Connect, Find };
+const Insert = function(schedule) {
+    return new Promise((resolve, reject) => {
+        const scheduleCollection = database.collection(collectionName);
+        scheduleCollection.insertOne(schedule, function(err, res) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                console.log('successfully inserted a new schedule');
+                resolve(res);
+            }
+        });
+    });
+};
+
+const Update = function(schedule, newSchedule) {
+    return new Promise((resolve, reject) => {
+        const scheduleCollection = database.collection(collectionName);
+        scheduleCollection.updateOne(schedule, newSchedule, function(err, res) {
+            if (err) {
+                reject(err)
+            }
+            else {
+                console.log('successfully updated a schedule');
+                resolve(res);
+            }
+        });
+    });
+};
+
+const Remove = function(schedule) {
+    return new Promise((resolve, reject) => {
+        const scheduleCollection = database.collection(collectionName);
+        scheduleCollection.deleteOne(schedule, function(err, res) {
+            if (err) {
+                reject(err);
+            }
+            else {
+                console.log('successfully removed a schedule');
+                resolve(res);
+            }
+        });
+    });
+};
+
+module.exports = { Connect, Find, Insert, Update, Remove };

@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
-// Get all endpoint
+// Get all endpoint to find all entries in database
 app.get('/api/schedules', cors(), async function(req, res) {
 
   const result = await DAL.Find();
@@ -33,7 +33,7 @@ app.get('/api/schedules', cors(), async function(req, res) {
   res.send(result);
 });
 
-// get by id endpoint
+// get by id endpoint to find specific entry in database
 app.get('/api/schedules/:id', cors(), async function(req, res) {
   const id = req.params.id;
   const schedule = {
@@ -48,6 +48,39 @@ app.get('/api/schedules/:id', cors(), async function(req, res) {
   }
 });
 
+//post endpoint to insert an entry in the database
+app.post('/api/schedules', cors(), async function(req, res) {
+  const schedule = req.body;
+  if (schedule) {
+    const result = await DAL.Insert(schedule);
+    res.send(result)
+  }
+  else {
+    res.send('Failed to create a schedule');
+  }
+});
+
+//put endpoint to edit an entry in the database
+app.put('/api/schedules/:id', cors(), async function(req, res) {
+  const id = req.params.id;
+  const schedule = {
+    _id: ObjectId(id)
+  };
+  const newSchedule = req.body;
+  const updatedSchedule = { $set: newSchedule };
+  const result = await DAL.Update(schedule, updatedSchedule);
+  res.send(result);
+});
+
+//delete enpoint to delete an entry in the database
+app.delete('/api/schedules/:id', cors(), async function(req, res) {
+  const id = req.params.id;
+  const schedule = {
+    _id: ObjectId(id)
+  };
+  const result = await DAL.Remove(schedule);
+  res.send(result);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
